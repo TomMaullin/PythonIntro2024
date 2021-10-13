@@ -117,15 +117,15 @@ class House:
         roomindex[8]='ChamberOfDeath'
 
         # Initial variables
-        self._fireStartedAt = None
-        self._roomnames = ['Kitchen', 'Bathroom', 'Living Room', 'Basement', 'Kennel', 'Attic', 'Bedroom', 'Study', 'ChamberOfDeath']
-        self._roomindex = roomindex
-        self._burnedOut = False
-        self._foundBook = False
-        self._foundKey = False
-        self._foundDog = False
-        self._foundKid = False
-        self._triedValve = False
+        self.__fireStartedAt = None
+        self.__roomnames = ['Kitchen', 'Bathroom', 'Living Room', 'Basement', 'Kennel', 'Attic', 'Bedroom', 'Study', 'ChamberOfDeath']
+        self.__roomindex = roomindex
+        self.__burnedOut = False
+        self.__foundBook = False
+        self.__foundKey = False
+        self.__foundDog = False
+        self.__foundKid = False
+        self.__triedValve = False
         self.activateSprinklerSystem = False
 
     # Represent function
@@ -164,8 +164,8 @@ class House:
     def burnToGround(self):
 
         # If we've not set the fire, start it. 
-        if not self._fireStartedAt:
-            self._fireStartedAt = time.time()
+        if not self.__fireStartedAt:
+            self.__fireStartedAt = time.time()
 
         # Tell the user.
         print('Yup. The house is now on fire. Great job.')
@@ -177,7 +177,7 @@ class House:
         self.__check__()
 
         # return the roomnames
-        return self._roomnames
+        return self.__roomnames
 
     # Function to describe the rooms
     def roomDescription(self, roomName): 
@@ -209,7 +209,7 @@ class House:
             time.sleep(1)
             print(" ")
             time.sleep(1)
-            print("Ah the fumes are coming in!!! You've only got " + str(1000-(time.time()-self._fireStartedAt)) + " seconds until the whole place goes up in flames!!")
+            print("Ah the fumes are coming in!!! You've only got " + str(1000-(time.time()-self.__fireStartedAt)) + " seconds until the whole place goes up in flames!!")
             time.sleep(1)
             print(" ")
             time.sleep(1)
@@ -230,7 +230,7 @@ class House:
         self.__check__()
 
         # Check if we're looking for the dog
-        if itemName.lower() == 'dog' and not self._foundDog:
+        if itemName.lower() == 'dog' and not self.__foundDog:
 
             # Tell the user to go look for dogs name
             print("Which Dog? Need to be more specific...")
@@ -244,13 +244,13 @@ class House:
             print("Maybe there's a clue *described* somewhere!")
 
         # Check for spike the dog
-        elif itemName.lower() == 'spike' and not self._foundDog:
+        elif itemName.lower() == 'spike' and not self.__foundDog:
 
             # Generate room number spike is in based on time code.
             roomNo = (time.time()//10 % 9)
 
             # Check if spikes in the room!
-            if self._roomindex[roomNo].lower()==roomName.lower():
+            if self.__roomindex[roomNo].lower()==roomName.lower():
 
                 # They caught spike!
                 print("You caught the dog!")
@@ -268,7 +268,7 @@ class House:
                 print("You can't leave the 'kid' in the house! Better find him quick!")
 
                 # Set found dog to true
-                self._foundDog = True
+                self.__foundDog = True
 
             # They didn't catch him
             else:
@@ -291,7 +291,7 @@ class House:
             if roomName.lower() == 'bedroom':
 
                 # Already found the valve
-                if self._foundKey:
+                if self.__foundKey:
 
                     # Unlock the valve
                     print("Unlocking the padlock on the valve with the kids key...")
@@ -328,7 +328,7 @@ class House:
                     time.sleep(1)
 
                     # Check if already found the book
-                    if not self._foundBook:
+                    if not self.__foundBook:
                         print("Did you check out all of the rooms?! Things are getting real bad here... maybe something about the chamber of death can help... if only you knew how to do a 'raindance' ;)")
                     else:
                         print("Last hope!! Did you find anything (potentially book-shaped) recently?! Maybe it can help you to perform... a 'raindance' ;)")
@@ -356,20 +356,20 @@ class House:
                     print("You should find your 'dog' and get out of the house ASAP!!")
 
                 # Record that we've tried the valve now
-                self._triedValve = True
+                self.__triedValve = True
 
             # The valve isn't in any other room
             else:
                 print('Nope, no valve here!')
 
         # Find the kid
-        elif itemName.lower() == 'kid' and not self._foundKid:
+        elif itemName.lower() == 'kid' and not self.__foundKid:
 
             # Generate a room for the kid to be in
             roomNo = (time.time()//20 % 9)
 
             # They found the kid.
-            if self._roomindex[roomNo].lower()==roomName.lower():
+            if self.__roomindex[roomNo].lower()==roomName.lower():
 
                 # Tell the user they found the kid and key
                 print('You found the kid!')
@@ -388,14 +388,14 @@ class House:
                 time.sleep(1)
                 print(" ")
                 time.sleep(1)
-                if self._triedValve:
+                if self.__triedValve:
                     print("That damn kid! He's got the key to the padlock for that valve! Kids, eh? Best try the valve again (rerun the same command as last time!)!")
                 else:
                     print("Huh the kids got a key... what's this for?")
 
                 # Record found the key and kid
-                self._foundKey = True
-                self._foundKid = True
+                self.__foundKey = True
+                self.__foundKid = True
 
             # Otherwise, tell the user they haven't found him
             else:
@@ -418,11 +418,11 @@ class House:
                 print('Why would there be a cucumber in the ' + roomName.lower() + '?')
 
 
-        elif self._foundKid:
+        elif self.__foundKid:
 
             print("You already found the kid, no?")
 
-        elif self._foundDog:
+        elif self.__foundDog:
 
             print("You already found the dog, no?")
 
@@ -432,23 +432,23 @@ class House:
 
     def __check__(self):
 
-        if self._fireStartedAt:
+        if self.__fireStartedAt:
 
-            if time.time()-self._fireStartedAt >= 1000:
+            if time.time()-self.__fireStartedAt >= 1000:
 
-                self._burnedOut = True
+                self.__burnedOut = True
 
-            if self._burnedOut:
+            if self.__burnedOut:
 
                 raise ValueError('The house burned down... damn.')
 
     def status(self):
 
-        if self._fireStartedAt:
+        if self.__fireStartedAt:
 
-            if time.time()-self._fireStartedAt >= 1000:
+            if time.time()-self.__fireStartedAt >= 1000:
 
-                self._burnedOut = True
+                self.__burnedOut = True
 
             else:
 
@@ -477,9 +477,9 @@ class House:
                 time.sleep(1)
                 print(" ")
                 time.sleep(1)
-                print("You've only got " + str(1000-(time.time()-self._fireStartedAt)) + " seconds left!!! Get a move on!")
+                print("You've only got " + str(1000-(time.time()-self.__fireStartedAt)) + " seconds left!!! Get a move on!")
 
-            if self._burnedOut:
+            if self.__burnedOut:
 
                 raise ValueError('The house burned down... damn.')
 
@@ -491,7 +491,7 @@ class House:
 
         self.__check__()
 
-        if self._fireStartedAt and not self.activateSprinklerSystem:
+        if self.__fireStartedAt and not self.activateSprinklerSystem:
 
             print("The sprinklers aren't working... You'll have to turn on the water on manually!")
             time.sleep(1)
@@ -501,7 +501,7 @@ class House:
             time.sleep(1)
             print(" ")
             time.sleep(1)
-            print('Time until total house annihilation: ', str(1000-(time.time()-self._fireStartedAt)), ' seconds and counting.')
+            print('Time until total house annihilation: ', str(1000-(time.time()-self.__fireStartedAt)), ' seconds and counting.')
             time.sleep(1)
             print(" ")
             time.sleep(1)
@@ -513,7 +513,7 @@ class House:
             time.sleep(1)
             print(" ")
             time.sleep(1)
-            print("Only " + str(1000-(time.time()-self._fireStartedAt)) + " seconds left")
+            print("Only " + str(1000-(time.time()-self.__fireStartedAt)) + " seconds left")
             time.sleep(1)
             print(" ")
             time.sleep(1)
@@ -531,7 +531,7 @@ class House:
             time.sleep(1)
             print("I guess it's time to go back to some object oriented programming, huh?")
 
-            self._fireStartedAt = False
+            self.__fireStartedAt = False
 
         else:
 
