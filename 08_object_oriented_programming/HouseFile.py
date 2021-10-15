@@ -213,7 +213,7 @@ class House:
             time.sleep(1)
             print(" ")
             time.sleep(1)
-            print("I wonder if this mystical book has any useful methods...")
+            print("I wonder if this mystical book has any useful methods... maybe you'll have to look at `type(book)` at some point...")
 
             # Return book
             return(mysticalBook())
