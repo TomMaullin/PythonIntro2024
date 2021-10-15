@@ -205,7 +205,7 @@ class House:
             time.sleep(1)
             print(" ")
             time.sleep(1)
-            print("Hey wait! What's this?! A weird mystical book! Maybe you should keep hold of this... I'd save the result of this function call if I were you!")
+            print("Hey wait! What's this?! A weird mystical book! Maybe you should keep hold of this... I'd save the result of this function call if I were you (e.g. `book=roomDescription('ChamberOfDeath')`)!")
             time.sleep(1)
             print(" ")
             time.sleep(1)
