@@ -85,7 +85,20 @@ class mysticalBook:
 
         # Unknown incantation
         else:
-            print("That incantation isn't in this book!")
+
+            # Generate a random number
+            x = np.random.uniform(0,1)
+
+            if x < 0.75:
+                print("That incantation isn't in this book! But I'd keep trying if I were you...")
+            else:
+                print("That incantation isn't in this book! If only there was a way to do something...")
+                time.sleep(2.5)
+                print("... like performing...")
+                time.sleep(2.5)
+                print("...I don't know...")
+                time.sleep(2.5)
+                print("a 'raindance'?")
 
 
     # Documenting function
